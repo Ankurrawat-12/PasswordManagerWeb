@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+<title>{% block title %}Edit Anime{% endblock %}</title>
+
+{% block content %}
+<form method="POST">
+    <h1 class="heading">Edit Anime</h1>
+    <div class="form-group">
+        <label for="rating">Rating Out of 10</label>
+        <input
+                type="text"
+                class="form-control"
+                id="rating"
+                name="rating"
+                placeholder="Eg 8.7"
+        >
+    </div>
+    <div class="form-group">
+        <label for="review">Short Review</label>
+        <input
+                type="text"
+                class="form-control"
+                id="review"
+                name="review"
+                placeholder="Worth Watching"
+        >
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+<title>{% block title %}Home{% endblock %}</title>
+
+{% block content %}
+<div class="container">
+    <h1 class="heading"><a href="/">Password Manager</a></h1>
+  <p class="description">Manage your passwords with ease</p>
+    {% for credential in credentials %}
+  <div class="card" display="inline" >
+    <div class="front" style="background-image: url('https://source.unsplash.com/user/erondu/200x400/?nature,water');">
+        {% if "https://" in credential.website_app and ".com" in credential.website_app %}
+        <p class="website_app">{{ (credential.website_app.split("https://")[1]).split(".com")[0]}}</p>
+        {% endif %}
+        {% if "https://" in credential.website_app and ".com" not in credential.website_app %}
+        <p class="website_app">{{ credential.website_app.split("https://")[1]}}</p>
+        {% endif %}
+        {% if ".com" in credential.website_app and "https://" not in credential.website_app %}
+        <p class="website_app">{{ credential.website_app.split(".com")[0]}}</p>
+        {% endif %}
+        {% if ".com" not in credential.website_app and "https://" not in credential.website_app %}
+        <p class="website_app">{{ credential.website_app }}</p>
+        {% endif %}
+
+    </div>
+    <div class="back">
+      <div>
+    <div class="title">{{credential.website_app}}</div>
+          <p class="add_date">{{credential.date}}</p>
+          <p class="email_username">{{credential.email_username}}</p>
+          <p class="password">{{credential.password}}</p>
+          <a href="{{ url_for('views.edit_credential', id=credential.id) }}" class="btn btn-primary">Update</a>
+          <a href="{{ url_for('views.copy_credential', id=credential.id) }}" class="btn btn-success">Copy</a>
+          <a href="{{ url_for('views.delete_credential', id=credential.id) }}" class="btn btn-danger">Delete</a>
+
+      </div>
+    </div>
+  </div>
+    {% endfor %}
+
+</div>
+<div class="container text-center add">
+    <a href="{{url_for('views.add_credential')}}" class="button">New Credential</a>
+</div>
+
+{% endblock %}
